@@ -34,7 +34,7 @@ contract NFTMarket is ReentrancyGuard {
 
     event MarketItemCreated(
         uint256 indexed itemId,
-        address indexed itemId,
+        address indexed nftContract,
         uint256 indexed tokenId,
         address seller,
         address owner,
@@ -55,11 +55,11 @@ contract NFTMarket is ReentrancyGuard {
     ) public payable nonReentrant {
         require(price > 0, "Price must be at least one wei");
         require(
-            msg.sender == listingPrice,
+            msg.value == listingPrice,
             "Price must be equal to listing price"
         );
 
-        itemIds.increment();
+        _itemIds.increment();
         uint256 itemId = _itemIds.current();
 
         idToMarketItem[itemId] = MarketItem(
@@ -109,15 +109,63 @@ contract NFTMarket is ReentrancyGuard {
 
     /* Returns all unsold market items */
     function fetchMarketItems() public view returns (MarketItem[] memory) {
-        uint256 itemCount = _itemIds.current;
+        uint256 itemCount = _itemIds.current();
         uint256 unsoldItemCount = _itemIds.current() - _itemsSold.current();
-        uint currentIndex = 0;
+        uint256 currentIndex = 0;
 
         MarketItem[] memory items = new MarketItem[](unsoldItemCount);
-        
-        for (uint i = 0; i< itemCount; i++) {
-            if (idToMarketItem[i+1].owner == address(0)) {
-                uint currentId = i + 1;
+
+        for (uint256 i = 0; i < itemCount; i++) {
+            if (idToMarketItem[i + 1].owner == address(0)) {
+                uint256 currentId = i + 1;
+                MarketItem storage currentItem = idToMarketItem[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+        }
+        return items;
+    }
+
+    /* Returns only items that a user has purchased */
+    function fetchMyNFTs() public view returns (MarketItem[] memory) {
+        uint256 totalItemCount = _itemIds.current();
+        uint256 itemCount = 0;
+        uint256 currentIndex = 0;
+
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (idToMarketItem[i + 1].owner == msg.sender) {
+                itemCount += 1;
+            }
+        }
+
+        MarketItem[] memory items = new MarketItem[](itemCount);
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (idToMarketItem[i + 1].owner == msg.sender) {
+                uint256 currentId = i + 1;
+                MarketItem storage currentItem = idToMarketItem[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+        }
+        return items;
+    }
+
+    /* Returns only items a user has created */
+    function fetchItemsCreated() public view returns (MarketItem[] memory) {
+        uint256 totalItemCount = _itemIds.current();
+        uint256 itemCount = 0;
+        uint256 currentIndex = 0;
+
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (idToMarketItem[i + 1].seller == msg.sender) {
+                itemCount += 1;
+            }
+        }
+
+        MarketItem[] memory items = new MarketItem[](itemCount);
+        for (uint256 i = 0; i < totalItemCount; i++) {
+            if (idToMarketItem[i + 1].seller == msg.sender) {
+                uint256 currentId = i + 1;
                 MarketItem storage currentItem = idToMarketItem[currentId];
                 items[currentIndex] = currentItem;
                 currentIndex += 1;
