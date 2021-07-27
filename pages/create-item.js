@@ -15,6 +15,8 @@ import NFT from '/artifacts/contracts/NFT.sol/NFT.json'
 import Market from '/artifacts/contracts/Market.sol/NFTMarket.json'
 
 export default function CreateItem() {
+  
+  //component state
   const [fileUrl, setFileUrl] = useState(null)
   const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
   const router = useRouter()
@@ -23,10 +25,8 @@ export default function CreateItem() {
     const file = e.target.files[0]
     try {
       const added = await client.add(
-        file,
-        {
-          progress: (prog) => console.log(`received: ${prog}`)
-        }
+        file, 
+        { progress: (prog) => console.log(`received: ${prog}`)}
       )
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       setFileUrl(url)
@@ -37,6 +37,7 @@ export default function CreateItem() {
   async function createMarket() {
     const { name, description, price } = formInput
     if (!name || !description || !price || !fileUrl) return
+  
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name, description, image: fileUrl

@@ -1,5 +1,7 @@
 /* pages/_app.js */
 import '../styles/globals.css'
+import 'tailwindcss/tailwind.css'
+
 import Link from 'next/link'
 
 function MyApp({ Component, pageProps }) {
@@ -13,23 +15,29 @@ function MyApp({ Component, pageProps }) {
               Home
             </a>
           </Link>
-          <Link href="/pages/create-item">
+          <Link href="/create-item">
             <a className="mr-6 text-pink-500">
               Sell Digital Asset
             </a>
           </Link>
-          <Link href="/pages/my-assets">
+          <Link href="/my-assets">
             <a className="mr-6 text-pink-500">
               My Digital Assets
             </a>
           </Link>
-          <Link href="/pages/creator-dashboard">
+          <Link href="/creator-dashboard">
             <a className="mr-6 text-pink-500">
               Creator Dashboard
             </a>
           </Link>
+          <Link href="/login">
+            <a className="mr-6 text-pink-500">
+              Login
+            </a>
+          </Link>
         </div>
       </nav>
+      
       <Component {...pageProps} />
     </div>
   )
