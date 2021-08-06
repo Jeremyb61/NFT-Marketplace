@@ -4,10 +4,9 @@ import 'tailwindcss/tailwind.css'
 import Login from './page/login.js'
 import { AppWrapper, useAppContext } from '../context/state.js';
 import Link from 'next/link'
-import { useContext } from 'react';
 
 export default function MyApp({ Component, pageProps }) {
-  console.log(useAppContext())
+  // console.log('_app', pageProps)
   return (
     <AppWrapper>
       <div>

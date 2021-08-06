@@ -2,10 +2,10 @@
 import { createContext, useContext } from 'react';
 
 const AppContext = createContext();
+let sharedState = { account: null};
 
 export function AppWrapper({ children }) {
-  let sharedState = { account: "dfdssd" }
-  
+  console.log("SharedState ", sharedState)
   return (
     <AppContext.Provider value={sharedState}>
       {children}
@@ -13,7 +13,11 @@ export function AppWrapper({ children }) {
   );
 }
 
+export function updateAccount(key) {
+  console.log("dfdsfssfsd ", key);
+  sharedState.account = key;
+}
+
 export function useAppContext() {
-  console.log(AppContext)
   return useContext(AppContext);
 }

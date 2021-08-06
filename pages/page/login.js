@@ -1,21 +1,22 @@
-import { useState, useContext } from 'react'
+import { useState, } from 'react'
 import { useRouter } from 'next/router';
-import { useAppContext } from '/context/state.js'
+import { AppWrapper, useAppContext, updateAccount } from '/context/state.js'
 
 
 export default function Login(props) {
     const router = useRouter()
-    const [accountKey, setAccountKey] = useState(null);
     const [buttonDisable, setbuttonDisabled] = useState(false);
 
-    console.log('FSFSDFDSSFDSDFS', useAppContext())
+
     async function connectToWallet() {
+
         setbuttonDisabled(true)
+
         await ethereum
             .request({ method: 'eth_requestAccounts' })
             .then((key) => {
-                setAccountKey(key);
-                useAppContext()
+
+                updateAccount(key[0]);
             })
             .catch((error) => {
                 if (error.code === 4001) {
@@ -29,6 +30,7 @@ export default function Login(props) {
     };
 
     return (
+        
         <div className="container flex justify-center">
 
             <div className="space-y-0">
