@@ -2,11 +2,12 @@
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import Login from './page/login.js'
-import { AppWrapper, useAppContext } from '../context/state.js';
+import { AppWrapper } from '../context/state.js'
 import Link from 'next/link'
 
+
 export default function MyApp({ Component, pageProps }) {
-  // console.log('_app', pageProps)
+
   return (
     <AppWrapper>
       <div>
