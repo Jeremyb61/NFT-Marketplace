@@ -45,7 +45,7 @@ export default function Home() {
     setNfts(items);
     setLoadingState('loaded');
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">The marketplace is empty</h1>)
 
   async function buyNft(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */

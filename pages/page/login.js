@@ -41,7 +41,7 @@ export default function Login(props) {
                     <button
                         disabled={buttonDisable}
                         onClick={connectToWallet}
-                        className="font-bold mt-12 ml-12 bg-pink-500 hover:bg-pink-300 text-white rounded p-4 shadow-lg">
+                        className="font-bold mt-12 ml-12 bg-blue-500 hover:bg-blue-300 text-white rounded p-4 shadow-lg">
                         Login
                     </button>
                 </div>

@@ -15,27 +15,27 @@ export default function MyApp({ Component, pageProps }) {
           <p className="text-4xl font-bold">Tokens</p>
           <div className="flex mt-4">
             <Link href="/">
-              <a className="mr-4 text-pink-500">
+              <a className="mr-4 text-blue-500">
                 Home
               </a>
             </Link>
             <Link href="/page/create-item">
-              <a className="mr-6 text-pink-500">
+              <a className="mr-6 text-blue-500">
                 Sell Digital Asset
               </a>
             </Link>
             <Link href="/page/my-assets">
-              <a className="mr-6 text-pink-500">
+              <a className="mr-6 text-blue-500">
                 My Digital Assets
               </a>
             </Link>
             <Link href="/page/creator-dashboard">
-              <a className="mr-6 text-pink-500">
+              <a className="mr-6 text-blue-500">
                 Creator Dashboard
               </a>
             </Link>
             <Link href="/page/login">
-              <a className="mr-6 text-pink-500">
+              <a className="mr-6 text-blue-500">
                 Login
               </a>
             </Link>
